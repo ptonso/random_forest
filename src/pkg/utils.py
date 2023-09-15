@@ -16,7 +16,7 @@ def save_df(df, filename):
 
 def save_model(model, filename):
     abs_path = get_parents()
-    rel_path = "\\model\\" + filename
+    rel_path = "\\models\\" + filename
 
     path = abs_path + rel_path
     pickle.dump(model, open(path, 'wb'))

@@ -14,3 +14,5 @@ def threshold_mapping(df, quantile=0.2, y_index=0, less_than=True):
     else:
         df[y_column] = (df[y_column] > quant_value).astype(int)
     return df
+
+
