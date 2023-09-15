@@ -8,6 +8,3 @@ __pycache__/
 
 # exclude data from source control
 /data/
-
-# Reports
-/reports/
