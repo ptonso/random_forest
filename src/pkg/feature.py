@@ -1,18 +1,17 @@
 import pandas as pd
 
-def threshold_mapping(df, quantile=0.2, y_index=0, less_than=True):
+def threshold_mapping(y, quantile=0.2, less_than=True):
     '''
-    receive df, return df
+    y continuous series, return y bool series
     in y_column, return 1 if value is less than quantile, else 0
     if less_than = False, return values greater than quantile
     '''
-    y_column = df.columns[y_index]
-    quant_value = df[y_column].quantile(quantile)
+    quant_value = y.quantile(quantile)
     
     if less_than:
-        df[y_column] = (df[y_column] < quant_value).astype(int)
+        y = (y < quant_value).astype(int)
     else:
-        df[y_column] = (df[y_column] > quant_value).astype(int)
-    return df
+        y = (y > quant_value).astype(int)
+    return y
 
 

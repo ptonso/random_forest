@@ -8,15 +8,24 @@ import graphviz
 import matplotlib.pyplot as plt
 
 
-def plot_tree(tree, feature_names, max_depth=5):
+def plot_tree(tree, feature_names, max_depth=5, savename=False):
     '''
     receives nth tree inside model: estimators_[n]
     and feature names: X_train.columns
     display graph of this tree 
     '''
     dot_data = export_graphviz(tree, feature_names=feature_names, filled=True, max_depth=5, impurity=False, proportion=True)
-    graph = graphviz.Source(dot_data)
+    graph = graphviz.Source(dot_data, format='png')
     display(graph)
+
+    if savename :
+
+        parent_abs = os.path.abspath(os.path.join(os.getcwd(),os.pardir))
+        parent = 'reports'
+
+        path = os.path.join(parent_abs, parent, savename)
+        graph.render(path)
+        print('figure saved on ', path)
 
 
 def plot_trees(rf, feature_names, nrows=2, ncols=3, savename=False):
@@ -48,5 +57,8 @@ def plot_trees(rf, feature_names, nrows=2, ncols=3, savename=False):
 
         path = os.path.join(parent_abs, relative_path, savename)
         fig.savefig(path)
+        print('figure saved on ', path)
 
-    plt.show()   
+    plt.show()
+
+
