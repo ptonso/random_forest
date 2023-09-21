@@ -16,10 +16,23 @@ def save_df(df, filename):
 
 def read_model(filename):
     path = get_path('models', filename)
+    # t = open(path,'wb')
+    
     model = pickle.load(open(path, 'rb'))
     return model
 
+
 def save_model(model, filename):
+    '''
+    e.g. inputs
+    model = rf # RandomForestClassifier
+    filename = "v01.pkl"
+    '''
     path = get_path('models', filename)
-    pickle.dump(model, open(path, 'wb'))
+
+    if os.path.exists(path):
+        open(path, 'x')
+
+    with open(path, 'wb') as f:
+        pickle.dump(model, f)
     print("model saved on: ", path)
