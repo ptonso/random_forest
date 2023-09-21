@@ -135,7 +135,7 @@ def tree(tree, feature_names, max_depth=5, savename=False):
         save(savename, graph.render)
 
 # Multiple trees
-def trees(rf, feature_names, nrows=2, ncols=3, savename=False):
+def trees(rf, nrows=2, ncols=3, savename=False):
     '''
     Decide size of output nrows x ncols = m
     plot first m decision trees inside rf
@@ -155,11 +155,14 @@ def trees(rf, feature_names, nrows=2, ncols=3, savename=False):
 
     for row in range(nrows):
         for column in range(ncols):
-            
 
-            i = column+(ncols*row) # Conferido
+            i = column+(ncols*row)
             dt = rf.estimators_[i]
-            feature_names = [f'Feature {i}' for i in range(len(dt.feature_importances_))]
+
+            # find better way to display feature names!!
+            feature_importances = dt.feature_importances_
+            n_features = len(feature_importances)
+            feature_names = [f"Feature {i}" for i in range(n_features)]
 
             sktree.plot_tree(dt, feature_names=feature_names, filled=True, ax=axes[row,column])
             axes[row,column].set_title('Estimator: ' + str(i), fontsize = 11)
